@@ -27,9 +27,10 @@ h1{
     height: 40px;
     width: 300px;
     padding: 15px;
+    font-size: 18px ;
 }
 
-button{
+.button-add-task{
     border: none;
     border-radius: 5px;
     background-color: #36ad46;
@@ -42,20 +43,20 @@ button{
 
 }
 
-button:hover{
+.button-add-task:hover{
     opacity: 0.8;
 }
-button:active{
+.button-add-task:active{
     opacity: 0.6;
 }
 
-ul{
+.list-tasks{
     list-style: none;
     margin-top: 30px;
     margin-bottom: 20px;
 }
 
-li{
+.task{
     display: flex;
     align-items: center;
     justify-content: space-between;
