@@ -1,40 +1,48 @@
 const button = document.querySelector('.button-add-task')
 const input = document.querySelector('.input-task')
-const fullList = document.querySelector('.list-tasks')
-
-let listaItens = []
+const ul = document.querySelector('.list-tasks')
+let listaItem = []
 
 function addTarefa(){
-    listaItens.push(input.value)
-
-    input.value = ''
-
-    showTasks()
-}
-
-function showTasks(){
-
-    let novaLi = ''
-
-    listaItens.forEach((tarefa, index) =>{
-
-        novaLi += `
-                <li class="task" >
-                    <img class="btn-check" src="./img/checked.png" alt="checked">
-                    <p>${tarefa}</p>
-                    <img class="btn-done" src="./img/cancel.png" alt="cancel" onclick="deleteItem(${index})">
-                </li>
-                `
+    listaItem.push({
+        tarefa: input.value,
+        concluida: false
     })
-    fullList.innerHTML =  novaLi
+    input.value = ''
+    mostrarTarefa()
 }
 
-function deleteItem(index){
-    listaItens.splice(index, 1)
-    console.log(index)
-
-    showTasks()
+function mostrarTarefa(){
+    novaLi = ''
+    listaItem.forEach((item, index) => {
+        novaLi += `
+            <li class="task ${item.concluida && "done"} ">
+                     <img class="btn-check" src="./img/checked.png" alt="checked" onclick="tarefaConcluida(${index})">
+                     <p>${item.tarefa}</p>
+                     <img class="btn-done" src="./img/cancel.png" alt="cancel" onclick="deletarTarefa(${index})">
+                 </li>
+        `
+    })
+    ul.innerHTML = novaLi
+    localStorage.setItem('lista', JSON.stringify(listaItem))
 }
 
+function deletarTarefa(index){
+    listaItem.splice(index, 1)
+    mostrarTarefa()
+}
+
+function tarefaConcluida(index){
+    listaItem[index].concluida = !listaItem[index].concluida
+    mostrarTarefa()
+}
+
+function recarregarTarefa(){
+    const tarefaLocal = localStorage.getItem('lista')
+    if(tarefaLocal){
+        listaItem = JSON.parse(tarefaLocal)
+    }
+    mostrarTarefa()
+}
+recarregarTarefa()
 button.addEventListener('click', addTarefa)
-

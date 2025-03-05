@@ -80,3 +80,8 @@ img:hover{
 img:active{
     opacity: 0.6;
 }
+
+.done{
+    background-color: rgb(128, 189, 59);
+    text-decoration: line-through;
+}
